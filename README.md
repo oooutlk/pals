@@ -5,7 +5,7 @@ generate a running _Processes' Arguments LiSt_ the portable way.
 
 # Application interface
 
-See [API doc](https://docs.rs/pals/0.1.0) for more.
+See [API doc](https://docs.rs/pals/0.1.1) for more.
 
 # Binary utility
 
