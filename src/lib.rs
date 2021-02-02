@@ -126,9 +126,9 @@ mod freebsd;
 #[cfg( target_os = "freebsd" )]
 use freebsd::{PsOutput, pals_from_procfs};
 
-#[cfg( any( target_os = "linux" ))]
+#[cfg( target_os = "linux" )]
 mod linux;
-#[cfg( any( target_os = "linux" ))]
+#[cfg( target_os = "linux" )]
 use linux::pals_from_procfs;
 
 #[cfg( windows )]
@@ -480,7 +480,6 @@ pub fn pals() -> anyhow::Result<ProcList> {
     pals_from_procfs( "/proc" )
         .or_else( |_| pals_from_ps_json() )
         .or_else( |_| pals_from_ps_ww() )
-
 }
 
 /// Dumps running processes' arguments into a list/forest.
@@ -494,6 +493,12 @@ pub fn pals() -> anyhow::Result<ProcList> {
 #[cfg( target_os = "windows" )]
 pub fn pals() -> anyhow::Result<ProcList> {
     windows::pals_from_wmic()
+}
+
+/// Dumps running processes' arguments into a list/forest.
+#[cfg( not( any( target_os = "freebsd",  target_os = "linux",  target_os = "windows" )))]
+pub fn pals() -> anyhow::Result<ProcList> {
+    pals_from_ps_ww()
 }
 
 #[cfg( not( target_os = "windows" ))]
