@@ -460,7 +460,7 @@ struct Link {
 }
 
 impl Link {
-    const fn null() -> usize { usize::MAX }
+    const fn null() -> usize { std::usize::MAX }
 }
 
 impl Default for Link {
